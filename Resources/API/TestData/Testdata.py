@@ -1,4 +1,3 @@
-# JSON_RPC_VERIFICATION
 class environment:
     # creating an enum for the environment
     UAT = "UAT"
@@ -34,8 +33,8 @@ class PROD:
 
 
 NODE_URL= "http://localhost:8545"
-# JSON_RPC_headers = {"Content-Type": "application/json"}
 
+# JSON_RPC_VERIFICATION
 blockNumber = {
       "jsonrpc": "2.0",
       "id": 0,
@@ -71,4 +70,36 @@ safeBlock = {
       "id": 0,
       "method": "eth_getBlockByNumber",
       "params": ["safe", True]
+    }
+
+# TRACE_ NAMESPACE
+earliestTraceBlock = {
+      "jsonrpc": "2.0",
+      "id": 0,
+      "method": "trace_block",
+      "params": ["earliest"]
+    }
+finalizedTraceBlock = {
+      "jsonrpc": "2.0",
+      "id": 0,
+      "method": "trace_block",
+      "params": ["finalized"]
+    }
+latestTraceBlock = {
+      "jsonrpc": "2.0",
+      "id": 0,
+      "method": "trace_block",
+      "params": ["latest"]
+    }
+pendingTraceBlock = {
+      "jsonrpc": "2.0",
+      "id": 0,
+      "method": "trace_block",
+      "params": ["pending"]
+    }
+safeTraceBlock = {
+      "jsonrpc": "2.0",
+      "id": 0,
+      "method": "trace_block",
+      "params": ["safe"]
     }
