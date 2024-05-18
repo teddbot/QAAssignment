@@ -1,0 +1,9 @@
+/results
+/log
+/.vscode
+/__pycache__
+/.idea
+*.html
+*.xml
+*.png
+*.env
