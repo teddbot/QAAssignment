@@ -1,19 +1,9 @@
 
-![Logo](https://miro.medium.com/v2/resize:fit:553/1*wnMQPTmEsIq0TiRgfX4hig.png)
+# Automation Template using Robot Framework and Performance Tests using k6
 
-
-# Automation Template using Robot Framework
-
-This is a guide for Test Automation on Robot framework
-
-
-
-
-## Installation
+## API Test Automation using Robot Framework
 
 Python: Robot Framework is a Python-based automation framework, so you will need to install Python on your computer. You can download the latest version of Python from the official Python website (https://www.python.org/downloads/).
-
-#### API Automation Installation 
 
 ```bash
     pip install robotframework  
@@ -45,6 +35,13 @@ For example, to execute a Smoke test, use the following command when you are in 
 ```bash
 robot -d results -i Smoke Test_1
 ```
+# Performance Tests using k6
+
+k6 has packages for Linux, Mac, and Windows. Alternatively, you can use a Docker container or a standalone binary. 
+Refer to the link under the Reference tab for installation across different devices
+```
+k6 run /path/to/filename.js
+```
 
 ## Improvements
 Use of AI-powered tools integrated to a DataLake, to identify defects and bugs and improve the quality of the application being tested. 
@@ -58,6 +55,8 @@ https://medium.com/geekculture/setting-up-python-environment-in-macos-using-pyen
 https://www.pythontutorial.net/python-basics/install-pipenv-windows/
 
 https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/
+
+https://k6.io/docs/get-started/installation/
 
 https://prakat.com/industry-news/testing-data-lake/#:~:text=A%20data%20lake%20is%20a,is%20an%20object%20storage%20service.
 
