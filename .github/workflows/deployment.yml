@@ -18,7 +18,7 @@ jobs:
     services:
       ethereum:
         # Use the official Nethermind image for a full Ethereum node
-        image: nethermind/nethermind:latest
+        image: nethermind/nethermind
         # Expose the Ethereum client port (default 8545) to the container
         ports:
           - 8545:8545
@@ -76,12 +76,12 @@ jobs:
       # Run Robot Framework tests located in the specified directory, storing results for upload
       - name: Run Robot Framework tests
         run: |
-          robot -d tests/robot/results tests/robot/test_suites
+          robot -d Tests/API
 
       # Run K6 load tests defined in the specified script, saving results as JSON
       - name: Run K6 load tests
         run: |
-          k6 run --out json=tests/k6/results/load_test_results.json tests/k6/scripts/load_test.js
+          k6 run --out json=PerformanceTests/k6
 
       # Upload the Robot Framework test results directory as an artifact
       - name: Upload Robot Framework results
