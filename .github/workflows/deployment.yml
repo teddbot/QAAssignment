@@ -76,6 +76,10 @@ jobs:
           echo "EC_AUTH_URL=http://localhost:8551" >> .env
           echo "EC_API_URL=http://localhost:8545" >> .env
           echo "CC_LOG_LEVEL=info" >> .env
+          
+      - name: Run Docker Compose
+        run: |
+          docker-compose up
 
       - name: Wait for Ethereum client to sync
         run: |
