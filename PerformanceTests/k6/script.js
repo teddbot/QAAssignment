@@ -13,7 +13,7 @@ export let options = {
                 { duration: '2m', target: 1000 },  // 1000 users for 2 minutes
                 { duration: '4m', target: 1000 },  // 1000 users for 4 minutes (steady state)
                 { duration: '2m', target: 500 },  // decrease to 500 users over 2 minutes
-                { duration: '1m', target: 500 },   // decrease to 500 users over 1 minute
+                { duration: '1m', target: 100 },   // decrease to 100 users over 1 minute
                 { duration: '30s', target: 0 },    // decrease to 0 users over 30 seconds
             ],
             gracefulStop: '30s',
@@ -28,7 +28,7 @@ export let options = {
                 { duration: '2m', target: 1000 },  // 1000 users for 2 minutes
                 { duration: '4m', target: 1000 },  // 1000 users for 4 minutes (steady state)
                 { duration: '2m', target: 500 },  // decrease to 500 users over 2 minutes
-                { duration: '1m', target: 500 },   // decrease to 500 users over 1 minute
+                { duration: '1m', target: 100 },   // decrease to 100 users over 1 minute
                 { duration: '30s', target: 0 },    // decrease to 0 users over 30 seconds
             ],
             gracefulStop: '30s',
@@ -43,7 +43,7 @@ export let options = {
                 { duration: '2m', target: 1000 },  // 1000 users for 2 minutes
                 { duration: '4m', target: 1000 },  // 1000 users for 4 minutes (steady state)
                 { duration: '2m', target: 500 },  // decrease to 500 users over 2 minutes
-                { duration: '1m', target: 500 },   // decrease to 500 users over 1 minute
+                { duration: '1m', target: 100 },   // decrease to 100 users over 1 minute
                 { duration: '30s', target: 0 },    // decrease to 0 users over 30 seconds
             ],
             gracefulStop: '30s',
