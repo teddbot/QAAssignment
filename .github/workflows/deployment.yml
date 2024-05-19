@@ -49,7 +49,7 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y k6
 
-      - name: Create .env file
+      - name: Manually create .env file
         run: |
           echo "EC_DATA_DIR=/tmp/nethermind/data" >> .env
           echo "EC_JWT_SECRET_PATH=/tmp/jwt/jwtsecret" >> .env
