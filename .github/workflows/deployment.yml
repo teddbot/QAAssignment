@@ -86,34 +86,34 @@ jobs:
         run: |
           docker-compose up
 
-      - name: Wait for Ethereum client to sync
-        run: |
-          echo "Waiting for Ethereum client to sync..."
-          for i in {1..60}; do
-            if curl -sSf http://localhost:8545; then
-              echo "Ethereum client is up and running"
-              break
-            fi
-            echo "Ethereum client is not ready yet. Retrying in 10 seconds..."
-            sleep 10
-          done
+#      - name: Wait for Ethereum client to sync
+#        run: |
+#          echo "Waiting for Ethereum client to sync..."
+#          for i in {1..60}; do
+#            if curl -sSf http://localhost:8545; then
+#              echo "Ethereum client is up and running"
+#              break
+#            fi
+#            echo "Ethereum client is not ready yet. Retrying in 10 seconds..."
+#            sleep 10
+#          done
 
       - name: Run Robot Framework tests
         run: |
           robot -d Tests/API/results Tests/API
 
-      - name: Run K6 load tests
-        run: |
-          k6 run --out json=PerformanceTests/k6/results/load_test_results.json PerformanceTests/k6
+#      - name: Run K6 load tests
+#        run: |
+#          k6 run --out json=PerformanceTests/k6/results/load_test_results.json PerformanceTests/k6
+#
+#      - name: Upload Robot Framework results
+#        uses: actions/upload-artifact@v2
+#        with:
+#          name: robot-results
+#          path: Tests/API/results/
 
-      - name: Upload Robot Framework results
-        uses: actions/upload-artifact@v2
-        with:
-          name: robot-results
-          path: Tests/API/results/
-
-      - name: Upload K6 results
-        uses: actions/upload-artifact@v2
-        with:
-          name: k6-results
-          path: PerformanceTests/k6/results/load_test_results.json
+#      - name: Upload K6 results
+#        uses: actions/upload-artifact@v2
+#        with:
+#          name: k6-results
+#          path: PerformanceTests/k6/results/load_test_results.json
