@@ -25,10 +25,10 @@ export let options = {
 
 function getBlockByNumberTest() {
 
-    let requestBody = `{"jsonrpc":"2.0","id":0,"method":"eth_getBlockByNumber","params":["blockParameter","returnFullTransactionObjects"]}`;
+    let requestBody = `{"jsonrpc":"2.0","id":0,"method":"eth_getBlockByNumber","params":["earliest", True]}`;
 
     let response = http.post(
-        'http://localhost:8545',
+        'http://139.144.26.89:8545',
         requestBody,
         {
             headers: {

@@ -25,10 +25,10 @@ export let options = {
 
 function traceBlockTest() {
 
-    let requestBody = `{"jsonrpc":"2.0","id":0,"method":"trace_block","params":[numberOrTag]}`;
+    let requestBody = `{"jsonrpc":"2.0","id":0,"method":"trace_block","params":[0]}`;
 
     let response = http.post(
-        'http://localhost:8545',
+        'http://139.144.26.89:8545',
         requestBody,
         {
             headers: {
