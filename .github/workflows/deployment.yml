@@ -95,20 +95,20 @@ jobs:
 
       - name: Run Robot Framework tests
         run: |
-          robot -d tests/robot/results tests/robot/test_suites
+          robot -d Tests/API/results Tests/API
 
       - name: Run K6 load tests
         run: |
-          k6 run --out json=tests/k6/results/load_test_results.json tests/k6/scripts/load_test.js
+          k6 run --out json=PerformanceTests/k6/results/load_test_results.json PerformanceTests/k6
 
       - name: Upload Robot Framework results
         uses: actions/upload-artifact@v2
         with:
           name: robot-results
-          path: tests/robot/results/
+          path: Tests/API/results/
 
       - name: Upload K6 results
         uses: actions/upload-artifact@v2
         with:
           name: k6-results
-          path: tests/k6/results/load_test_results.json
+          path: PerformanceTests/k6/results/load_test_results.json
