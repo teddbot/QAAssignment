@@ -1,137 +1,58 @@
-# Workflow name describes the purpose
 name: Run API and Load Tests
 
-# Trigger the workflow on push and pull request events targeting the main branch
 on:
   push:
     branches: [ main ]
   pull_request:
     branches: [ main ]
 
-# Define a single job named 'run-tests' to execute all test steps
 jobs:
   run-tests:
-    # Run the tests on the latest Ubuntu image
     runs-on: ubuntu-latest
 
-    # Define services required for the job
-    services:
-      sedge-execution-client:
-        image: nethermind/nethermind:latest
-        stop_grace_period: 30s
-        restart: unless-stopped
-        ports:
-          - 30303:30303/tcp
-          - 30303:30303/udp
-          - 8008:8008
-          - 8545:8545
-          - 8551:8551
-        expose:
-          - 8545
-          - 8551
-        options: > 
-          --health-cmd "curl -sSf http://localhost:8545 || exit 1"
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-        env:
-          NETHERMIND_CONFIG: mainnet
-        volumes:
-          - /tmp/nethermind/data:/nethermind/data
-          - /tmp/jwt/jwtsecret:/tmp/jwt/jwtsecret
-        command: >
-          --config=mainnet
-          --datadir=/nethermind/data
-          --log=INFO
-          --JsonRpc.Enabled=true
-          --JsonRpc.Host=0.0.0.0
-          --JsonRpc.Port=8545
-          --JsonRpc.JwtSecretFile=/tmp/jwt/jwtsecret
-          --JsonRpc.EngineHost=0.0.0.0
-          --JsonRpc.EnginePort=8551
-          --Network.DiscoveryPort=30303
-          --HealthChecks.Enabled=true
-          --Metrics.Enabled=true
-          --Metrics.ExposePort=8008
-          --Sync.NonValidatorNode=true
-          --Sync.DownloadBodiesInFastSync=false
-          --Sync.DownloadReceiptsInFastSync=false
-          --JsonRpc.EnabledModules=[Eth,TxPool,Web3,Net,Health,Rpc,Debug]
-        networks:
-          - sedge-network
-
-      sedge-consensus-client:
-        image: sigp/lighthouse:latest
-        stop_grace_period: 30s
-        restart: unless-stopped
-        ports:
-          - 9000:9000/tcp
-          - 9000:9000/udp
-          - 5054:5054/tcp
-          - 4000:4000
-        expose:
-          - 4000
-        volumes:
-          - /tmp/lighthouse/data:/var/lib/lighthouse
-          - /tmp/jwt/jwtsecret:/tmp/jwt/jwtsecret
-        command: >
-          lighthouse
-          bn
-          --disable-upnp
-          --datadir=/var/lib/lighthouse
-          --port=9000
-          --http
-          --http-address=0.0.0.0
-          --http-port=4000
-          --network=mainnet
-          --target-peers=100
-          --execution-endpoints=http://localhost:8551
-          --execution-jwt=/tmp/jwt/jwtsecret
-          --eth1=http://localhost:8545
-          --debug-level=INFO
-          --validator-monitor-auto
-          --subscribe-all-subnets
-          --import-all-attestations
-          --metrics
-          --metrics-port=5054
-          --metrics-address=0.0.0.0
-          --checkpoint-sync-url=http://139.144.26.89:4000/
-        networks:
-          - sedge-network
-
-    networks:
-      sedge-network:
-        name: sedge-network
-
-    # Define a sequence of steps for the job
     steps:
-      # Checkout the project code from the Git repository
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      # Set up a Python 3.8 environment for test execution
       - name: Set up Python 3.8
         uses: actions/setup-python@v2
         with:
           python-version: '3.8'
 
-      # Install Robot Framework and its dependencies for API testing
       - name: Install Robot Framework libraries
         run: |
           python -m pip install --upgrade pip
           pip install robotframework requests robotframework-requests
 
-      # Set up a Node.js 14 environment for K6
       - name: Set up Node.js 14
         uses: actions/setup-node@v2
         with:
           node-version: '14'
 
-      # Install K6 for running load tests
       - name: Install K6
         run: sudo apt-get install -y k6
 
-      # Wait for the Ethereum client to synchronize with the blockchain (retries up to 10 minutes)
+      - name: Install dependencies
+        run: sudo apt-get install -y curl jq
+
+      - name: Set up sedge
+        run: |
+          echo 'Running sedge...'
+          curl -LO https://github.com/NethermindEth/sedge/releases/download/v0.5.0/sedge-v0.5.0-linux-amd64.tar.gz
+          tar -xzf sedge-v0.5.0-linux-amd64.tar.gz
+          chmod +x sedge
+          ./sedge deps install >>sedge.logs
+          ./sedge generate --logging none -p $HOME full-node \
+            --map-all --no-mev-boost --no-validator \
+            --network chiado -c lighthouse:sigp/lighthouse:latest \
+            -e nethermind:nethermindeth/nethermind:master \
+            --el-extra-flag Sync.NonValidatorNode=true \
+            --el-extra-flag Sync.DownloadBodiesInFastSync=false \
+            --el-extra-flag Sync.DownloadReceiptsInFastSync=false \
+            --el-extra-flag JsonRpc.EnabledModules=[Eth,TxPool,Web3,Net,Health,Rpc,Debug] \
+            --cl-extra-flag checkpoint-sync-url=http://139.144.26.89:4000/ >>sedge.logs
+          ./sedge run -p . >>sedge.logs
+
       - name: Wait for Ethereum client to sync
         run: |
           echo "Waiting for Ethereum client to sync..."
@@ -144,24 +65,20 @@ jobs:
             sleep 10
           done
 
-      # Run Robot Framework tests located in the specified directory, storing results for upload
       - name: Run Robot Framework tests
         run: |
           robot -d tests/robot/results tests/robot/test_suites
 
-      # Run K6 load tests defined in the specified script, saving results as JSON
       - name: Run K6 load tests
         run: |
           k6 run --out json=tests/k6/results/load_test_results.json tests/k6/scripts/load_test.js
 
-      # Upload the Robot Framework test results directory as an artifact
       - name: Upload Robot Framework results
         uses: actions/upload-artifact@v2
         with:
           name: robot-results
           path: tests/robot/results/
 
-      # Upload the K6 load test results file as a separate artifact
       - name: Upload K6 results
         uses: actions/upload-artifact@v2
         with:
