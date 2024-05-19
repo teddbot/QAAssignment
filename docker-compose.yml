@@ -82,4 +82,4 @@ services:
     - --checkpoint-sync-url=http://139.144.26.89:4000/
 networks:
   sedge:
-    name: com.docker.compose.network
+    driver: bridge
