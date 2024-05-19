@@ -1,9 +1,15 @@
 *** Settings ***
 Library  JSONLibrary
 Library  RequestsLibrary
+Library  Collections
+Library  SeleniumLibrary
+Library  OperatingSystem
 Library   ../../Library/jsonExtender.py
 Library   ../../Library/stringToDict.py
+Library  urllib3
 Library  String
+Library  DateTime
+
 
 Variables  ./TestData/Testdata.py
 
