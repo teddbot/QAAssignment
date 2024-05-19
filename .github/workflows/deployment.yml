@@ -44,20 +44,25 @@ jobs:
       - name: Set up sedge
         run: |
           echo 'Running sedge...'
-          curl -LO https://github.com/NethermindEth/sedge/releases/download/v0.5.0/sedge-v0.5.0-linux-amd64.tar.gz
-          tar -xzf sedge-v0.5.0-linux-amd64.tar.gz
-          chmod +x sedge
-          ./sedge deps install >>sedge.logs
-          ./sedge generate --logging none -p $HOME full-node \
-            --map-all --no-mev-boost --no-validator \
-            --network chiado -c lighthouse:sigp/lighthouse:latest \
-            -e nethermind:nethermindeth/nethermind:master \
-            --el-extra-flag Sync.NonValidatorNode=true \
-            --el-extra-flag Sync.DownloadBodiesInFastSync=false \
-            --el-extra-flag Sync.DownloadReceiptsInFastSync=false \
-            --el-extra-flag JsonRpc.EnabledModules=[Eth,TxPool,Web3,Net,Health,Rpc,Debug] \
-            --cl-extra-flag checkpoint-sync-url=http://139.144.26.89:4000/ >>sedge.logs
-          ./sedge run -p . >>sedge.logs
+          curl -LO https://github.com/NethermindEth/sedge/releases/download/v1.3.2/sedge-v1.3.2-linux-amd64
+          if [ -f sedge-v1.3.2-linux-amd64 ]; then
+            chmod +x sedge-v1.3.2-linux-amd64
+            mv sedge-v1.3.2-linux-amd64 sedge
+            ./sedge deps install >>sedge.logs
+            ./sedge generate --logging none -p $HOME full-node \
+              --map-all --no-mev-boost --no-validator \
+              --network chiado -c lighthouse:sigp/lighthouse:latest \
+              -e nethermind:nethermindeth/nethermind:master \
+              --el-extra-flag Sync.NonValidatorNode=true \
+              --el-extra-flag Sync.DownloadBodiesInFastSync=false \
+              --el-extra-flag Sync.DownloadReceiptsInFastSync=false \
+              --el-extra-flag JsonRpc.EnabledModules=[Eth,TxPool,Web3,Net,Health,Rpc,Debug] \
+              --cl-extra-flag checkpoint-sync-url=http://139.144.26.89:4000/ >>sedge.logs
+            ./sedge run -p . >>sedge.logs
+          else
+            echo "Failed to download sedge"
+            exit 1
+          fi
 
       - name: Wait for Ethereum client to sync
         run: |
