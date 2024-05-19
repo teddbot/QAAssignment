@@ -29,11 +29,17 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Install K6
-        run: sudo apt-get install -y k6
-
       - name: Install dependencies
-        run: sudo apt-get install -y curl jq
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y curl jq gnupg software-properties-common
+
+      - name: Install K6
+        run: |
+          curl -s https://dl.k6.io/key.gpg | sudo apt-key add -
+          echo "deb https://dl.k6.io/deb stable main" | sudo tee /etc/apt/sources.list.d/k6.list
+          sudo apt-get update
+          sudo apt-get install -y k6
 
       - name: Set up sedge
         run: |
