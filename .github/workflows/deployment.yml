@@ -1,4 +1,4 @@
-name: Run API and Load Tests
+name: Execute API and Load Tests
 
 on:
   push:
