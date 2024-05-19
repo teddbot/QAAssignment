@@ -89,55 +89,20 @@ jobs:
             echo "Syncing in progress"
           fi
 
-
-#      - name: Set up sedge
-#        run: |
-#          echo 'Running sedge...'
-#          curl -LO https://github.com/NethermindEth/sedge/releases/download/v1.3.2/sedge-v1.3.2-linux-amd64
-#          chmod +x sedge-v1.3.2-linux-amd64
-#          mv sedge-v1.3.2-linux-amd64 sedge
-#          ./sedge deps install >>sedge.logs
-#          ./sedge generate --logging none -p $HOME full-node \
-#            --map-all --no-mev-boost --no-validator \
-#            --network chiado -c lighthouse:sigp/lighthouse:latest \
-#            -e nethermind:nethermindeth/nethermind:master \
-#            --el-extra-flag Sync.NonValidatorNode=true \
-#            --el-extra-flag Sync.DownloadBodiesInFastSync=false \
-#            --el-extra-flag Sync.DownloadReceiptsInFastSync=false \
-#            --el-extra-flag JsonRpc.EnabledModules=[Eth,TxPool,Web3,Net,Health,Rpc,Debug,Trace] \
-#            --cl-extra-flag checkpoint-sync-url=http://139.144.26.89:4000/ >>sedge.logs
-#          ./sedge run -p . >>sedge.logs
-
-#      - name: Run Docker Compose
-#        run: |
-#          docker-compose up
-
-#      - name: Wait for Ethereum client to sync
-#        run: |
-#          echo "Waiting for Ethereum client to sync..."
-#          for i in {1..60}; do
-#            if curl -sSf http://localhost:8545; then
-#              echo "Ethereum client is up and running"
-#              break
-#            fi
-#            echo "Ethereum client is not ready yet. Retrying in 10 seconds..."
-#            sleep 10
-#          done
-
-#      - name: Run Robot Framework tests
-#        run: |
-#          robot -d Tests/API/results Tests/API
+      - name: Run Robot Framework tests
+        run: |
+          robot -d Tests/API/results Tests/API
 
       - name: Run K6 load tests
         run: |
           mkdir -p PerformanceTests/k6/results
           k6 run --out csv=PerformanceTests/k6/results/report.csv PerformanceTests/k6/script.js
-#
-#      - name: Upload Robot Framework results
-#        uses: actions/upload-artifact@v2
-#        with:
-#          name: robot-results
-#          path: Tests/API/results/
+
+      - name: Upload Robot Framework results
+        uses: actions/upload-artifact@v2
+        with:
+          name: robot-results
+          path: Tests/API/results/report.html
 
       - name: Upload K6 results
         uses: actions/upload-artifact@v2
