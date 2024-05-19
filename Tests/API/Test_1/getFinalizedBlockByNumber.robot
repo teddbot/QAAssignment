@@ -13,6 +13,10 @@ Valid Test ETH Get Finalized Block By Number
      When user sends a POST request with query /
      Then user recieves valid HTTP response code 200
      Then user confirms result is present in response
+     And user confirms difficulty is present in response
+     And user confirms hash is present in response
+     And user confirms number is present in response
+     And user confirms x is present in response
 
 Invalid Test ETH Get Block By Number - Missing method
      [Documentation]    Invalid Test with missing method

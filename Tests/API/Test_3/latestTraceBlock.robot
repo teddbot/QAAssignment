@@ -12,7 +12,10 @@ Valid Test Latest Trace Block
      And user sets body ${latestTraceBlock}
      When user sends a POST request with query /
      Then user recieves valid HTTP response code 200
-     Then user confirms message is present in response
+     Then user confirms result is present in response
+     And user confirms author is present in response
+     And user confirms blockHash is present in response
+     And user confirms blockNumber is present in response
 
 Invalid Test Latest Trace Block - missing params
      [Documentation]    Invalid Test with missing params

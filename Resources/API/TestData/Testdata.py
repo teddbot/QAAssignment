@@ -93,31 +93,31 @@ earliestTraceBlock = {
     "jsonrpc": "2.0",
     "id": 0,
     "method": "trace_block",
-    "params": [0]
+    "params": [0x968dfc]
 }
 finalizedTraceBlock = {
     "jsonrpc": "2.0",
     "id": 0,
     "method": "trace_block",
-    "params": [0]
+    "params": ["finalized"]
 }
 latestTraceBlock = {
     "jsonrpc": "2.0",
     "id": 0,
     "method": "trace_block",
-    "params": [0]
+    "params": ["latest"]
 }
 pendingTraceBlock = {
     "jsonrpc": "2.0",
     "id": 0,
     "method": "trace_block",
-    "params": [0]
+    "params": ["pending"]
 }
 safeTraceBlock = {
     "jsonrpc": "2.0",
     "id": 0,
     "method": "trace_block",
-    "params": [0]
+    "params": ["safe"]
 }
 invalidTraceBlock = {
     "jsonrpc": "2.0",

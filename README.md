@@ -41,7 +41,7 @@ For example, to execute a Smoke test, use the following command when you are in 
 ```bash
 robot -d results -i Smoke Test_1
 ```
-# Performance Tests using k6
+# Parallel Performance Tests using k6
 
 k6 has packages for Linux, Mac, and Windows. Alternatively, you can use a Docker container or a standalone binary. 
 Refer to the link under the Reference tab for installation across different devices
@@ -53,18 +53,19 @@ k6 run /path/to/filename.js
 ```
 
 ## Improvements
-1. Use of AI-powered tools integrated to a DataLake, to identify defects and bugs and improve the quality of the application being tested. 
+1. Use of Grafana dashboards to query and visualize the performance reports from InfluxDB. The current setup I have for the assignment is bulky.
+2. Use of AI-powered tools integrated to a DataLake, to identify defects and bugs and improve the quality of the application being tested. 
 We can come up with self-healing test cases. These can automatically repair themselves when broken. They use algorithms that adapt to changes in an application's interface to ensure that tests remain valid and effective. This can reduce maintenance for testing teams.
-2. Use of Grafana dashboards to visualize the performance reports
 
 ## Reports
 
 API Automated Tests
 
 ![](../../Screenshot 2024-05-19 at 20.19.36.png)
-k6 Performance Test
-![alt text](https://drive.google.com/file/d/1TKqOubC-gCqDpKvN-u_QrXDzjv-6s0-l/view?usp=sharing)
 
+k6 Performance Test
+
+![](../../Screenshot 2024-05-19 at 22.01.03.png)
 ## References
 
 https://medium.com/geekculture/setting-up-python-environment-in-macos-using-pyenv-and-pipenv-116293da8e72
