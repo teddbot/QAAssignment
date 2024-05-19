@@ -61,8 +61,7 @@ We can come up with self-healing test cases. These can automatically repair them
 
 API Automated Tests
 
-![alt text](https://drive.google.com/file/d/1TKqOubC-gCqDpKvN-u_QrXDzjv-6s0-l/view?usp=sharing)
-
+![](../../Screenshot 2024-05-19 at 20.19.36.png)
 k6 Performance Test
 ![alt text](https://drive.google.com/file/d/1TKqOubC-gCqDpKvN-u_QrXDzjv-6s0-l/view?usp=sharing)
 
