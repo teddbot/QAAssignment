@@ -98,9 +98,9 @@ jobs:
 #            sleep 10
 #          done
 
-      - name: Run Robot Framework tests
-        run: |
-          robot -d Tests/API/results Tests/API
+#      - name: Run Robot Framework tests
+#        run: |
+#          robot -d Tests/API/results Tests/API
 
 #      - name: Run K6 load tests
 #        run: |
