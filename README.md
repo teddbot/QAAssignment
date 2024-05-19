@@ -47,6 +47,14 @@ k6 run /path/to/filename.js
 Use of AI-powered tools integrated to a DataLake, to identify defects and bugs and improve the quality of the application being tested. 
 We can come up with self-healing test cases. These can automatically repair themselves when broken. They use algorithms that adapt to changes in an application's interface to ensure that tests remain valid and effective. This can reduce maintenance for testing teams. 
 
+## Reports
+
+API Automated Tests
+
+![alt text](https://drive.google.com/file/d/1TKqOubC-gCqDpKvN-u_QrXDzjv-6s0-l/view?usp=sharing)
+
+k6 Performance Test
+![alt text](https://drive.google.com/file/d/1TKqOubC-gCqDpKvN-u_QrXDzjv-6s0-l/view?usp=sharing)
 
 ## References
 

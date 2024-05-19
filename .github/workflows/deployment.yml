@@ -64,10 +64,6 @@ jobs:
           echo "EC_API_URL=http://localhost:8545" >> .env
           echo "CC_LOG_LEVEL=info" >> .env
 
-      - name: Run Docker Compose
-        run: |
-          docker-compose up
-
       - name: Set up sedge
         run: |
           echo 'Running sedge...'
@@ -82,9 +78,13 @@ jobs:
             --el-extra-flag Sync.NonValidatorNode=true \
             --el-extra-flag Sync.DownloadBodiesInFastSync=false \
             --el-extra-flag Sync.DownloadReceiptsInFastSync=false \
-            --el-extra-flag JsonRpc.EnabledModules=[Eth,TxPool,Web3,Net,Health,Rpc,Debug] \
+            --el-extra-flag JsonRpc.EnabledModules=[Eth,TxPool,Web3,Net,Health,Rpc,Debug,Trace] \
             --cl-extra-flag checkpoint-sync-url=http://139.144.26.89:4000/ >>sedge.logs
           ./sedge run -p . >>sedge.logs
+
+      - name: Run Docker Compose
+        run: |
+          docker-compose up
 
       - name: Wait for Ethereum client to sync
         run: |
