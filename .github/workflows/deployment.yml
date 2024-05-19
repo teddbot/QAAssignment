@@ -34,6 +34,9 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y curl jq gnupg software-properties-common
 
+      - name: Install Docker
+        uses: docker/setup-buildx-action@v2
+
       - name: Install K6
         run: |
           curl -s https://dl.k6.io/key.gpg | sudo apt-key add -
@@ -45,24 +48,19 @@ jobs:
         run: |
           echo 'Running sedge...'
           curl -LO https://github.com/NethermindEth/sedge/releases/download/v1.3.2/sedge-v1.3.2-linux-amd64
-          if [ -f sedge-v1.3.2-linux-amd64 ]; then
-            chmod +x sedge-v1.3.2-linux-amd64
-            mv sedge-v1.3.2-linux-amd64 sedge
-            ./sedge deps install >>sedge.logs
-            ./sedge generate --logging none -p $HOME full-node \
-              --map-all --no-mev-boost --no-validator \
-              --network chiado -c lighthouse:sigp/lighthouse:latest \
-              -e nethermind:nethermindeth/nethermind:master \
-              --el-extra-flag Sync.NonValidatorNode=true \
-              --el-extra-flag Sync.DownloadBodiesInFastSync=false \
-              --el-extra-flag Sync.DownloadReceiptsInFastSync=false \
-              --el-extra-flag JsonRpc.EnabledModules=[Eth,TxPool,Web3,Net,Health,Rpc,Debug] \
-              --cl-extra-flag checkpoint-sync-url=http://139.144.26.89:4000/ >>sedge.logs
-            ./sedge run -p . >>sedge.logs
-          else
-            echo "Failed to download sedge"
-            exit 1
-          fi
+          chmod +x sedge-v1.3.2-linux-amd64
+          mv sedge-v1.3.2-linux-amd64 sedge
+          ./sedge deps install >>sedge.logs
+          ./sedge generate --logging none -p $HOME full-node \
+            --map-all --no-mev-boost --no-validator \
+            --network chiado -c lighthouse:sigp/lighthouse:latest \
+            -e nethermind:nethermindeth/nethermind:master \
+            --el-extra-flag Sync.NonValidatorNode=true \
+            --el-extra-flag Sync.DownloadBodiesInFastSync=false \
+            --el-extra-flag Sync.DownloadReceiptsInFastSync=false \
+            --el-extra-flag JsonRpc.EnabledModules=[Eth,TxPool,Web3,Net,Health,Rpc,Debug] \
+            --cl-extra-flag checkpoint-sync-url=http://139.144.26.89:4000/ >>sedge.logs
+          ./sedge run -p . >>sedge.logs
 
       - name: Wait for Ethereum client to sync
         run: |
