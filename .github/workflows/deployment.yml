@@ -130,7 +130,7 @@ jobs:
 
       - name: Run K6 load tests
         run: |
-          k6 run --out html=PerformanceTests/k6/results/summary.html PerformanceTests/k6/script.js
+          k6 run --out web-dashboard=PerformanceTests/k6/results/summary.html PerformanceTests/k6/script.js
 #
 #      - name: Upload Robot Framework results
 #        uses: actions/upload-artifact@v2
