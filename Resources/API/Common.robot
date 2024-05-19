@@ -15,15 +15,16 @@ Variables  ./TestData/Testdata.py
 
 ***Variables***
 # Global Variables default empty if value not set
-${NODE_URL}    http://139.144.26.89:4000    # Update with your Ethereum node URL
+#${NODE_URL}    http://139.144.26.89:4000    # Update with your Ethereum node URL
 ${headers}      {"Content-Type": "application/json"}
 ${body}
 # default test data file Path
 ${PATH}=    ${CURDIR}\\TestData
+${API_BASE_ENDPOINT}        http://139.144.26.89:8545
 
 *** Keywords ***
 session creation ${API_BASE_ENDPOINT}
-    Create Session  mysession  ${API_BASE_ENDPOINT}   verify=False  debug=0
+    Create Session  mysession  url=${API_BASE_ENDPOINT}/   verify=False  debug=0
 
 # verification to confirm the response code
 confirm response code ${res_code}
@@ -49,5 +50,10 @@ POST a Request with query ${QUERY}
     # set proxy
     ${response}=  Post On Session    mysession  ${QUERY}  data=${body}  headers=${headers}
     # Makes a variable available everywhere within the scope of the current test.
+    Set Test Variable    ${response}
+
+POST a Request
+    [Arguments]    ${API_BASE_ENDPOINT}
+    ${response}=    POST On Session    mysession  url=${NODE_URL}  data=${body}  headers=${headers}
     Set Test Variable    ${response}
 

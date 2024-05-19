@@ -36,7 +36,7 @@ class PROD:
 
 
 # NODE_URL= "http://localhost:8545"
-NODE_URL = "http://139.144.26.89:4000"
+# NODE_URL = "http://139.144.26.89:4000"
 
 # JSON_RPC_VERIFICATION
 blockNumber = {
@@ -123,5 +123,5 @@ invalidTraceBlock = {
     "jsonrpc": "2.0",
     "id": 0,
     "method": "trace_block",
-    "params": []
+    "params": ["nethermind"]
 }

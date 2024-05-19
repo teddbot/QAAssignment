@@ -3,6 +3,8 @@
 Resource  Common.robot
 Variables  ./TestData/Testdata.py
 
+*** Variables ***
+${NODE_URL}     /
 
 *** Keywords ***
 
@@ -20,6 +22,9 @@ user sets endpoint with base api ${BASE_API}
 
 user sends a POST Request with query ${QUERY}
     Common.POST a Request with query ${QUERY}
+
+#user sends a POST Request ${NODE_URL}
+#    Common.POST a Request ${NODE_URL}
 
 user enters body ${arg}
     log to console  ${arg}
