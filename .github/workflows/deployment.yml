@@ -44,6 +44,25 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y k6
 
+      - name: Create .env file
+        run: |
+          echo "EC_DATA_DIR=/tmp/nethermind/data" >> .env
+          echo "EC_JWT_SECRET_PATH=/tmp/jwt/jwtsecret" >> .env
+          echo "EC_IMAGE_VERSION=nethermindeth/nethermind:master" >> .env
+          echo "NETWORK=chiado" >> .env
+          echo "NETHERMIND_LOG_LEVEL=info" >> .env
+          echo "CC_DATA_DIR=/tmp/lighthouse" >> .env
+          echo "CC_JWT_SECRET_PATH=/tmp/jwt/jwtsecret" >> .env
+          echo "CC_IMAGE_VERSION=sigp/lighthouse:latest" >> .env
+          echo "CC_PEER_COUNT=50" >> .env
+          echo "EC_AUTH_URL=http://localhost:8551" >> .env
+          echo "EC_API_URL=http://localhost:8545" >> .env
+          echo "CC_LOG_LEVEL=info" >> .env
+
+      - name: Run Docker Compose
+        run: |
+          docker-compose up
+
       - name: Set up sedge
         run: |
           echo 'Running sedge...'
@@ -61,25 +80,6 @@ jobs:
             --el-extra-flag JsonRpc.EnabledModules=[Eth,TxPool,Web3,Net,Health,Rpc,Debug] \
             --cl-extra-flag checkpoint-sync-url=http://139.144.26.89:4000/ >>sedge.logs
           ./sedge run -p . >>sedge.logs
-
-      - name: Create .env file
-        run: |
-          echo "EC_DATA_DIR=/tmp/nethermind/data" >> .env
-          echo "EC_JWT_SECRET_PATH=/tmp/jwt/jwtsecret" >> .env
-          echo "EC_IMAGE_VERSION=nethermindeth/nethermind:master" >> .env
-          echo "NETWORK=chiado" >> .env
-          echo "NETHERMIND_LOG_LEVEL=info" >> .env
-          echo "CC_DATA_DIR=/tmp/lighthouse" >> .env
-          echo "CC_JWT_SECRET_PATH=/tmp/jwt/jwtsecret" >> .env
-          echo "CC_IMAGE_VERSION=sigp/lighthouse:latest" >> .env
-          echo "CC_PEER_COUNT=50" >> .env
-          echo "EC_AUTH_URL=http://localhost:8551" >> .env
-          echo "EC_API_URL=http://localhost:8545" >> .env
-          echo "CC_LOG_LEVEL=info" >> .env
-          
-      - name: Run Docker Compose
-        run: |
-          docker-compose up
 
       - name: Wait for Ethereum client to sync
         run: |
