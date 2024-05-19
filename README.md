@@ -1,3 +1,4 @@
+![example workflow](https://github.com/teddbot/QAAssignment/actions/workflows/deployment.yml/badge.svg?event=push)
 
 # Automation Template using Robot Framework and Performance Tests using k6
 
@@ -9,13 +10,18 @@ Python: Robot Framework is a Python-based automation framework, so you will need
     pip install robotframework  
     pip install robotframework-jsonlibrary
     pip install robotframework-requests
-    pip install robotframework-collections
     pip install robotframework-seleniumlibrary
     pip install urllib3
     pip install robotframework-stringformat
 
 ```
 Virtual Environment (Venv, Pipenv, Virtualenv)
+
+To run the robot automated tests locally:
+```
+cd path/to/your/tests
+robot -d Tests/Results Tests/API
+```
 
 #### Tags
 Tags are a simple and powerful way of classifying test cases.
@@ -39,13 +45,17 @@ robot -d results -i Smoke Test_1
 
 k6 has packages for Linux, Mac, and Windows. Alternatively, you can use a Docker container or a standalone binary. 
 Refer to the link under the Reference tab for installation across different devices
+
+To run the k6 performance tests locally:
 ```
+cd path/to/your/tests
 k6 run /path/to/filename.js
 ```
 
 ## Improvements
-Use of AI-powered tools integrated to a DataLake, to identify defects and bugs and improve the quality of the application being tested. 
-We can come up with self-healing test cases. These can automatically repair themselves when broken. They use algorithms that adapt to changes in an application's interface to ensure that tests remain valid and effective. This can reduce maintenance for testing teams. 
+1. Use of AI-powered tools integrated to a DataLake, to identify defects and bugs and improve the quality of the application being tested. 
+We can come up with self-healing test cases. These can automatically repair themselves when broken. They use algorithms that adapt to changes in an application's interface to ensure that tests remain valid and effective. This can reduce maintenance for testing teams.
+2. Use of Grafana dashboards to visualize the performance reports
 
 ## Reports
 
