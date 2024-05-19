@@ -143,4 +143,4 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: k6-results
-          path: PerformanceTests/k6/results/summary.html
+          path: PerformanceTests/k6/results/report.csv
