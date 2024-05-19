@@ -18,8 +18,6 @@ jobs:
     services:
       sedge-execution-client:
         image: nethermind/nethermind:latest
-        container_name: sedge-execution-client
-        tty: true
         stop_grace_period: 30s
         restart: unless-stopped
         ports:
@@ -31,9 +29,13 @@ jobs:
         expose:
           - 8545
           - 8551
-        environment:
-          TERM: xterm-256color
-          COLORTERM: truecolor
+        options: > 
+          --health-cmd "curl -sSf http://localhost:8545 || exit 1"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        env:
+          NETHERMIND_CONFIG: mainnet
         volumes:
           - /tmp/nethermind/data:/nethermind/data
           - /tmp/jwt/jwtsecret:/tmp/jwt/jwtsecret
@@ -60,7 +62,6 @@ jobs:
 
       sedge-consensus-client:
         image: sigp/lighthouse:latest
-        container_name: sedge-consensus-client
         stop_grace_period: 30s
         restart: unless-stopped
         ports:
