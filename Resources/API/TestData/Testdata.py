@@ -32,7 +32,8 @@ class PROD:
     PASSWORD = ""
 
 
-NODE_URL= "http://localhost:8545"
+# NODE_URL= "http://localhost:8545"
+NODE_URL= "http://139.144.26.89:4000"
 
 # JSON_RPC_VERIFICATION
 blockNumber = {
