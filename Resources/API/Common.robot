@@ -15,7 +15,7 @@ Variables  ./TestData/Testdata.py
 
 ***Variables***
 # Global Variables default empty if value not set
-${NODE_URL}    http://localhost:8545    # Update with your Ethereum node URL
+${NODE_URL}    http://139.144.26.89:4000    # Update with your Ethereum node URL
 ${headers}      {"Content-Type": "application/json"}
 ${body}
 # default test data file Path
