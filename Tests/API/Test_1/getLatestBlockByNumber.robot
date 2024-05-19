@@ -5,7 +5,7 @@ Variables  ../../../Resources/API/TestData/Testdata.py
 
 *** Test Cases ***
 Valid Test ETH Get Latest Block By Number
-     [Documentation]    Test obtaining latest block details using eth_getBlockByNumber endpoint
+     [Documentation]    Valid Test
      [tags]  Smoke
      Given user sets endpoint with base api ${NODE_URL}
      And user sets headers ${headers}
@@ -14,12 +14,23 @@ Valid Test ETH Get Latest Block By Number
      Then user recieves valid HTTP response code 200
      Then user confirms result is present in response
 
-Invalid Test ETH Get Block By Number
-     [Documentation]    Invalid Test obtaining block details using eth_getBlockByNumber endpoint
+Invalid Test ETH Get Block By Number - Missing method
+     [Documentation]    Invalid Test with missing method
      [tags]  Smoke
      Given user sets endpoint with base api ${NODE_URL}
      And user sets headers ${headers}
-     And user sets body {"jsonrpc": "2.0", "id": 0, "method": "eth_getBlockByNumber", "params": "invalid_params"}
+     And user sets body ${invalidBlockMethod}
+     And user sends a POST request with query /
+     Then user recieves valid HTTP response code 200
+     Then user confirms error is present in response
+     And user confirms Method is required is present in response
+
+Invalid Test ETH Get Block By Number - Missing parameters
+     [Documentation]    Invalid Test with missing parameters
+     [tags]  Smoke
+     Given user sets endpoint with base api ${NODE_URL}
+     And user sets headers ${headers}
+     And user sets body ${invalidBlockParams}
      And user sends a POST request with query /
      Then user recieves valid HTTP response code 200
      Then user confirms error is present in response

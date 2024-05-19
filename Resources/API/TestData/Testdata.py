@@ -71,35 +71,53 @@ safeBlock = {
       "method": "eth_getBlockByNumber",
       "params": ["safe", True]
     }
+invalidBlockParams = {
+      "jsonrpc": "2.0",
+      "id": 0,
+      "method": "eth_getBlockByNumber",
+      "params": []
+    }
+invalidBlockMethod = {
+      "jsonrpc": "2.0",
+      "id": 0,
+      "method": "",
+      "params": ["earliest", False]
+    }
 
 # TRACE_ NAMESPACE
 earliestTraceBlock = {
       "jsonrpc": "2.0",
       "id": 0,
       "method": "trace_block",
-      "params": ["earliest"]
+      "params": [0]
     }
 finalizedTraceBlock = {
       "jsonrpc": "2.0",
       "id": 0,
       "method": "trace_block",
-      "params": ["finalized"]
+      "params": [0]
     }
 latestTraceBlock = {
       "jsonrpc": "2.0",
       "id": 0,
       "method": "trace_block",
-      "params": ["latest"]
+      "params": [0]
     }
 pendingTraceBlock = {
       "jsonrpc": "2.0",
       "id": 0,
       "method": "trace_block",
-      "params": ["pending"]
+      "params": [0]
     }
 safeTraceBlock = {
       "jsonrpc": "2.0",
       "id": 0,
       "method": "trace_block",
-      "params": ["safe"]
+      "params": [0]
+    }
+invalidTraceBlock = {
+      "jsonrpc": "2.0",
+      "id": 0,
+      "method": "trace_block",
+      "params": []
     }

@@ -1,7 +1,6 @@
 *** Settings ***
 Library  JSONLibrary
 Library  RequestsLibrary
-Library  Collections
 Library  SeleniumLibrary
 Library  OperatingSystem
 Library   ../../Library/jsonExtender.py
