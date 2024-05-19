@@ -40,7 +40,7 @@ services:
     - --Sync.NonValidatorNode=true
     - --Sync.DownloadBodiesInFastSync=false
     - --Sync.DownloadReceiptsInFastSync=false
-    - --JsonRpc.EnabledModules=[Eth,TxPool,Web3,Net,Health,Rpc,Debug]
+    - --JsonRpc.EnabledModules=[Eth,TxPool,Web3,Net,Health,Rpc,Debug,Trace]
   consensus:
     stop_grace_period: 30s
     container_name: sedge-consensus-client
